@@ -1,28 +1,30 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const authRoutes = require("./routes/auth");
-const cors = require("cors"); // Import the CORS middleware
-require("dotenv").config();
-
+const cors = require("cors");
 const app = express();
-const PORT = 5000;
+require("dotenv").config();
+const cookieParser = require("cookie-parser");
+const authRoute = require("./routes/AuthRoute");
+const { MONGO_URL, PORT } = process.env;
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB", err);
-  });
-
-app.use(cors()); // Use CORS middleware to allow requests from the frontend
-app.use(express.json());
-app.use("/api/auth", authRoutes); // All the routes defined in auth.js will be prefixed with /api/auth
+  .connect(MONGO_URL)
+  .then(() => console.log("MongoDB is  connected successfully"))
+  .catch((err) => console.error(err));
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
+
+app.use(express.json());
+
+app.use("/", authRoute);
