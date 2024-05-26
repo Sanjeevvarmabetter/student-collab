@@ -12,7 +12,8 @@ function Chat() {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [cookies, removeCookie] = useCookies([]);
-    const [username, setUsername] = useState("");
+    const [usernames, setUsername] = useState("");
+
     useEffect(() => {
         const verifyCookie = async () => {
             if (!cookies.token) {
@@ -33,7 +34,7 @@ function Chat() {
         };
         verifyCookie();
     }, [cookies, navigate, removeCookie]);
-    
+
     useEffect(() => {
         axios.get('http://localhost:5000/messages')
             .then(response => {
@@ -49,32 +50,36 @@ function Chat() {
 
     const sendMessage = (e) => {
         e.preventDefault();
-        const msg = { username: 'User', message };
+        const msg = { username: usernames, message };
         socket.emit('chat message', msg);
         setMessage('');
     };
 
     return (
-        <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
-            <h1 className="text-xl font-bold mb-4">Chat App</h1>
-            <div className="chat-box mb-4">
-                {messages.map((msg, index) => (
-                    <div key={index} className="mb-2">
-                        <strong>{msg.username}: </strong>{msg.message}
-                    </div>
-                ))}
+        <div className='bg-[#071e34] h-screen flex jutify-cemter items-center'>
+            <div className="max-w-md mx-auto bg-white shadow-md rounded-md p-6">
+                <a className='text-3xl text-red-600' href="/">Home</a>
+                
+                <h1 className="text-xl font-bold my-4 ">Chat App</h1>
+                <div className="chat-box mb-4">
+                    {messages.map((msg, index) => (
+                        <div key={index} className="mb-2">
+                            <strong>{msg.username}: </strong>{msg.message}
+                        </div>
+                    ))}
+                </div>
+                <form onSubmit={sendMessage} className="flex">
+                    <input
+                        type="text"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        className="flex-grow mr-2 border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+                    />
+                    <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                        Send
+                    </button>
+                </form>
             </div>
-            <form onSubmit={sendMessage} className="flex">
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    className="flex-grow mr-2 border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                />
-                <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                    Send
-                </button>
-            </form>
         </div>
     );
 }

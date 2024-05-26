@@ -6,6 +6,7 @@ import Profile from "./pages/Profile";
 import GroupCard from "./pages/Groups";
 import Forgot from "./pages/Forgot";
 import Todo from "./pages/Todo";
+import Chat from "./pages/Chat";
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         {/* <Route path="/groups" element={<GroupCard/>} /> */}
+        <Route path="/chat" element={<Chat/>} />
         <Route path="/forgotpass" element={<Forgot/>} />
         <Route path="/todo" element={<Todo/>} />
         
