@@ -6,6 +6,7 @@ const StudyGroup = require('./model');
 router.post('/study-groups', async (req, res) => {
   try {
     const newStudyGroup = await StudyGroup.create(req.body);
+    console.log('Group Created');
     res.status(201).json(newStudyGroup);
   } catch (err) {
     res.status(400).json({ message: err.message });
