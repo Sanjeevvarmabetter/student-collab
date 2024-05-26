@@ -18,10 +18,13 @@ const subjects = [
   "Cyber Security",
 
 ];
+
+//updated covers
+
 const subjectCovers = {
   "Data Structures": "/pics/ds.png",
   "Algorithms": "/pics/algo.jpg",
-  "Computer Networks": "/pics/cn.jpg", // Adjust filenames and paths as needed
+  "Computer Networks": "/pics/cn.jpg",
   "Database Systems": "/pics/dbms.jpg",
   "Operating Systems": "/pics/os.png",
   "Software Engineering": "/pics/se.jpg",
