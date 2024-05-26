@@ -18,6 +18,7 @@ const { MONGO_URL, PORT } = process.env;
 
 const server = http.createServer(app);
 
+const Message = require('./models/Message')
 const io = new Server(server, {
   cors: {
       origin: "http://localhost:3000",
@@ -31,9 +32,6 @@ mongoose
   .then(() => console.log("MongoDB is  connected successfully"))
   .catch((err) => console.error(err));
 
-server.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
 
 app.use(
   cors({
@@ -56,7 +54,7 @@ app.use("/api/user", profileRoute);
 
 app.use("/api/todo", todo);
 
-app.use("/api", messageRoute)
+app.use("/", messageRoute)
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -72,3 +70,6 @@ io.on('connection', (socket) => {
   });
 });
 
+server.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});

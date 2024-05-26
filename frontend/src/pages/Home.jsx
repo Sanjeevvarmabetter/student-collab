@@ -48,7 +48,7 @@ const Home = () => {
     navigate("/signup");
   };
   return (
-    <div className="bg-[#071e34] h-screen">
+    <div className="bg-[#071e34]">
       <NavBar style={{ position: "Sticky" }} />
       <ToastContainer />
       <div className="btn flex my-5 mx-10 items-right justify-end">
