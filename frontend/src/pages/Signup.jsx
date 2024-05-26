@@ -10,6 +10,9 @@ const Signup = () => {
     email: "",
     password: "",
     username: "",
+    fullname: "",
+    studentID: "",
+    phoneNumber: ""
   });
   const [cookies, removeCookie] = useCookies([]);
   useEffect(() => {
@@ -20,7 +23,14 @@ const Signup = () => {
     };
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
-  const { email, password, username } = inputValue;
+  const {
+    email,
+    password,
+    username,
+    fullname,
+    studentID,
+    phoneNumber
+  } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -39,6 +49,7 @@ const Signup = () => {
     });
 
   const handleSubmit = async (e) => {
+    console.log(inputValue)
     e.preventDefault();
     try {
       const { data } = await axios.post(
@@ -65,12 +76,15 @@ const Signup = () => {
       email: "",
       password: "",
       username: "",
+      fullname: "",
+      studentID: "",
+      phoneNumber: ""
     });
   };
 
   return (
-    <div className="center">
-      <div className="form_container">
+    <div className="centers">
+      <div className="form_containers">
         <h2>Signup Account</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -85,12 +99,45 @@ const Signup = () => {
             />
           </div>
           <div>
-            <label htmlFor="email">Username</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               name="username"
               value={username}
               placeholder="Enter your username"
+              onChange={handleOnChange}
+              autoComplete="true"
+            />
+          </div>
+          <div>
+            <label htmlFor="fullname">FullName</label>
+            <input
+              type="text"
+              name="fullname"
+              value={fullname}
+              placeholder="Enter your Fullname"
+              onChange={handleOnChange}
+              autoComplete="true"
+            />
+          </div>
+          <div>
+            <label htmlFor="studentID">studentID</label>
+            <input
+              type="text"
+              name="studentID"
+              value={studentID}
+              placeholder="Enter your studentID"
+              onChange={handleOnChange}
+              autoComplete="true"
+            />
+          </div>
+          <div>
+            <label htmlFor="phoneNumber">phoneNumber</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              value={phoneNumber}
+              placeholder="Enter your phoneNumber"
               onChange={handleOnChange}
               autoComplete="true"
             />

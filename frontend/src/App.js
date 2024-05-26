@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/components/NotFound";
 import Profile from "./pages/Profile";
 import GroupCard from "./pages/components/Groups";
+import Forgot from "./pages/Forgot";
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/groups" element={<GroupCard/>} />
+        <Route path="/forgotpass" element={<Forgot/>} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

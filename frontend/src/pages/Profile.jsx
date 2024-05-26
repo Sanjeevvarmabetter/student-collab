@@ -1,71 +1,103 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-const Profile = () => {
-    return (
-        <div class="bg-black antialiased h-screen">
-            <div class="container mx-auto">
-                <div>
-                    <div class="bg-white relative shadow rounded-lg w-5/6 md:w-5/6  lg:w-4/6 xl:w-3/6 mx-auto">
-                        <div class="mt-16">
-                            <h1 class="font-bold text-center text-3xl text-gray-900">Pantazi Software</h1>
-                            <p class="text-center text-sm text-gray-400 font-medium">UI Components Factory</p>
-                            <p>
-                                <span>
+function Profile() {
+  const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
+    const [username, setUsername] = useState("");
+    useEffect(() => {
+        const verifyCookie = async () => {
+            if (!cookies.token) {
+                navigate("/login");
+            }
+            const { data } = await axios.post(
+                "http://localhost:5000",
+                {},
+                { withCredentials: true }
+            );
+            const { status, user } = data;
+            setUsername(user);
+        };
+        verifyCookie();
+    }, [cookies, navigate, removeCookie]);
 
-                                </span>
-                            </p>
-                            <div class="my-5 px-6">
-                                <a href="#" class="text-gray-200 block rounded-lg text-center font-medium leading-6 px-6 py-3 bg-gray-900 hover:bg-black hover:text-white">Connect with <span class="font-bold">@pantazisoft</span></a>
-                            </div>
-                            <div class="flex justify-between items-center my-5 px-6">
-                                <a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Facebook</a>
-                                <a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Twitter</a>
-                                <a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Instagram</a>
-                                <a href="" class="text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded transition duration-150 ease-in font-medium text-sm text-center w-full py-3">Email</a>
-                            </div>
+    // State to store user data
+    const [userData, setUserData] = useState(null);
+    // State to track loading state
+    const [loading, setLoading] = useState(true);
+    // State to track error
+    const [error, setError] = useState(null);
 
-                            <div class="w-full">
-                                <h3 class="font-medium text-gray-900 text-left px-6">Recent activites</h3>
-                                <div class="mt-5 w-full flex flex-col items-center overflow-hidden text-sm">
-                                    <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2" />
-                                            Updated his status
-                                            <span class="text-gray-500 text-xs">24 min ago</span>
-                                    </a>
+    useEffect(() => {
+        // Function to fetch user data
+        const fetchUserData = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                // Make a GET request to fetch user data by username
+                const response = await axios.get(`http://localhost:5000/api/user/${username}`);
+                setUserData(response.data);
+                setLoading(false);
 
-                                    <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2"/>
-                                            Added new profile picture
-                                            <span class="text-gray-500 text-xs">42 min ago</span>
-                                    </a>
+            } catch (error) {
+                setError('Error fetching user data');
+                setLoading(false);
+            }
+        };
 
-                                    <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2"/>
-                                            Posted new article in <span class="font-bold">#Web Dev</span>
-                                            <span class="text-gray-500 text-xs">49 min ago</span>
-                                    </a>
+        fetchUserData();
+    }, [username]); // Run the effect whenever the username changes
 
-                                    <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150">
-                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2" />
-                                            Edited website settings
-                                            <span class="text-gray-500 text-xs">1 day ago</span>
-                                    </a>
+    // Render loading state
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+  return (
+    <div className="profile">
+      <section className=" bg-[#071e34] flex font-medium items-center justify-center h-screen">
+        <section className="w-72 mx-auto bg-[#20354b] rounded-2xl px-8 py-6 shadow-lg">
+          <div className="flex items-center justify-between">
+            <span className="text-gray-400 text-sm">Profile</span>
+            <span className="text-emerald-400">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+              </svg>
+            </span>
+          </div>
+          <div className="mt-6 w-fit mx-auto">
+            <img src="https://images.unsplash.com/photo-1507019403270-cca502add9f8?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="rounded-full w-28 h-28 object-cover" alt="profile picture" srcSet="" />
+          </div>
 
-                                    <a href="#" class="w-full border-t border-gray-100 text-gray-600 py-4 pl-6 pr-3 w-full block hover:bg-gray-100 transition duration-150 overflow-hidden">
-                                        <img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full h-6 shadow-md inline-block mr-2" />
-                                            Added new rank
-                                            <span class="text-gray-500 text-xs">5 days ago</span>
-                                    </a>
+          <div className="mt-8 ">
+            <h2 className="text-white font-bold text-2xl tracking-wide">{userData.username}</h2>
+          </div>
+          <p className="text-emerald-400 font-semibold mt-2.5" >
+            Active
+          </p>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div className="mt-3 text-white text-sm">
+            <span className="text-gray-400 font-semibold">Full Name:</span>
+            <span>{userData.fullname}</span>
+          </div>
+          <div className="mt-3 text-white text-sm">
+            <span className="text-gray-400 font-semibold">Gmail:</span>
+            <span>{userData.email}</span>
+          </div>
+          <div className="my-3 text-white text-sm">
+            <span className="text-gray-400 font-semibold">PhoneNumber:</span>
+            <span>{userData.phoneNumber}</span>
+          </div>
+        <a className="my-2 text-yellow-300" href="/">Home</a>
+        </section>
 
-                </div>
-            </div>
-        </div>
-    )
+      </section>
+    </div>
+  );
 }
 
-export default Profile
+export default Profile;

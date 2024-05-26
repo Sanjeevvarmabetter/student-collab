@@ -4,7 +4,10 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
 const authRoute = require("./routes/AuthRoute");
+const otpRoute = require('./routes/OtpRoute');
+const profileRoute = require('./routes/user')
 const { MONGO_URL, PORT } = process.env;
 
 mongoose
@@ -27,4 +30,10 @@ app.use(cookieParser());
 
 app.use(express.json());
 
+app.use(bodyParser.json());
+
 app.use("/", authRoute);
+
+app.use("/api/auth", otpRoute);
+
+app.use("/api/user",profileRoute)

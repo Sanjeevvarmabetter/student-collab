@@ -15,12 +15,31 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Your password is required"],
   },
+  // Additional fields for user profile
+  fullname: {
+    type: String,
+    required: [true, "Your full name is required"],
+  },
+  studentID: {
+    type: String,
+    unique: true,
+    required: [true, "Student ID is required"],
+  },
+  
+  phoneNumber: {
+    type: String,
+    unique: true,
+    required: [true, "PhoneNumber is required"],
+  },
+
   createdAt: {
     type: Date,
     default: new Date(),
   },
+  // Add more fields as needed for user profile
 });
 
+// Hash password before saving to database
 userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 12);
 });
