@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+
+import Calender from './components/Calender';
 import NavBar from "./components/NavBar";
 import CardSlider from "./CardSlider";
 import Chat from './Chat';
@@ -75,7 +77,11 @@ const Home = () => {
         </div>
       </div>
 
-      <Chat/>
+      <div className="flex justify-evenly items-baseline">
+        <Calender />
+        <Chat />
+
+      </div>
     </div>
   );
 };
