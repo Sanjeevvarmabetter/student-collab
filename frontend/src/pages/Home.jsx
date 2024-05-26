@@ -5,7 +5,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import NavBar from "./components/NavBar";
 import CardSlider from "./CardSlider";
-
+import Chat from './Chat';
 const subjects = [
   "Data Structures",
   "Algorithms",
@@ -61,6 +61,8 @@ const Home = () => {
           <CardSlider subjects={subjects} />
         </div>
       </div>
+
+      <Chat/>
     </div>
   );
 };
