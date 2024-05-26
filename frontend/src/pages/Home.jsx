@@ -20,15 +20,15 @@ const subjects = [
 
 
 const subjectCovers = {
-  "Data Structures": "/pics/ds.png",
-  "Algorithms": "/pics/algo.jpg",
-  "Computer Networks": "/pics/cn.jpg",
-  "Database Systems": "/pics/dbms.jpg",
-  "Operating Systems": "/pics/os.png",
-  "Software Engineering": "/pics/se.jpg",
-  "Artificial Intelligence": "/pics/ai.jpg",
-  "Machine Learning": "/pics/ml.jpg",
-  "Cyber Security": "/pics/cs.jpg",
+  "Data Structures": "../components/pics/ds.png",
+  "Algorithms": "../components/pics/algo.jpg",
+  "Computer Networks": "../components/pics/cn.jpg",
+  "Database Systems": "../components/pics/dbms.jpg",
+  "Operating Systems": "../components/pics/os.jpg",
+  "Software Engineering": "../components/pics/se.jpg",
+  "Artificial Intelligence": "../components/pics/ai.jpg",
+  "Machine Learning": "../components/pics/ml.jpg",
+  "Cyber Security": "../components/pics/cs.jpeg",
 };
 
 
