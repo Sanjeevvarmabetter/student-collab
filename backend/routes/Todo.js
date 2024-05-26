@@ -4,7 +4,7 @@ const Todo = require('../models/todo');
 const router = express.Router();
 
 // Get all todos
-router.get('/', async (req, res) => {
+router.get('/fetchtodo', async (req, res) => {
   try {
     const todos = await Todo.find();
     res.json(todos);
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Create a new todo
-router.post('/', async (req, res) => {
+router.post('/new', async (req, res) => {
   const todo = new Todo({
     text: req.body.text,
   });
