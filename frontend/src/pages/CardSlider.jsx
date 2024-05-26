@@ -2,7 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import Card from './components/Card';
 
-const CardSlider = ({ subjects }) => {
+const CardSlider = ({ subjects, subjectCovers }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -43,7 +43,7 @@ const CardSlider = ({ subjects }) => {
     <div className="w-full">
       <Slider {...settings}>
         {subjects.map(subject => (
-          <Card key={subject} subject={subject} />
+          <Card key={subject} subject={subject} cover={subjectCovers[subject]} />
         ))}
       </Slider>
     </div>

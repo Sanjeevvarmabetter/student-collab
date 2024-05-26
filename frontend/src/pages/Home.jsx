@@ -16,8 +16,23 @@ const subjects = [
   "Artificial Intelligence",
   "Machine Learning",
   "Cyber Security",
-  "Web Development"
+
 ];
+
+//updated covers
+
+const subjectCovers = {
+  "Data Structures": "/pics/ds.png",
+  "Algorithms": "/pics/algo.jpg",
+  "Computer Networks": "/pics/cn.jpg",
+  "Database Systems": "/pics/dbms.jpg",
+  "Operating Systems": "/pics/os.png",
+  "Software Engineering": "/pics/se.jpg",
+  "Artificial Intelligence": "/pics/ai.jpg",
+  "Machine Learning": "/pics/ml.jpg",
+  "Cyber Security": "/pics/cs.jpg",
+};
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -58,7 +73,7 @@ const Home = () => {
 
       <div className="flex justify-center ">
         <div className="w-11/12">
-          <CardSlider subjects={subjects} />
+          <CardSlider subjects={subjects} subjectCovers={subjectCovers} />
         </div>
       </div>
 
