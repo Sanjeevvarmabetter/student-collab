@@ -5,9 +5,12 @@ const app = express();
 require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
+
 const authRoute = require("./routes/AuthRoute");
 const otpRoute = require('./routes/OtpRoute');
 const profileRoute = require('./routes/user')
+const todo = require('./routes/Todo')
+
 const { MONGO_URL, PORT } = process.env;
 
 mongoose
@@ -36,4 +39,6 @@ app.use("/", authRoute);
 
 app.use("/api/auth", otpRoute);
 
-app.use("/api/user",profileRoute)
+app.use("/api/user",profileRoute);
+
+app.use("/api/todo", todo);
