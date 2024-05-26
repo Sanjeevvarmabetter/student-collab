@@ -1,7 +1,7 @@
 const User = require("../models/UserModel");
 
 module.exports.fetchDetails = async (req, res, next) => {
-    const username = req.params.username;
+  const username = req.params.username;
 
   try {
     const user = await User.findOne({username});
