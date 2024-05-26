@@ -16,10 +16,8 @@ const subjects = [
   "Artificial Intelligence",
   "Machine Learning",
   "Cyber Security",
-
 ];
 
-//updated covers
 
 const subjectCovers = {
   "Data Structures": "/pics/ds.png",

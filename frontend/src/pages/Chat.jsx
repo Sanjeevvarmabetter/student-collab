@@ -33,6 +33,7 @@ function Chat() {
         };
         verifyCookie();
     }, [cookies, navigate, removeCookie]);
+    
     useEffect(() => {
         axios.get('http://localhost:5000/messages')
             .then(response => {
